@@ -1,0 +1,48 @@
+<!--
+/************************ LICENCE ***************************
+*     This file is part of <ViKM Vital-IT Knowledge Management web application>
+*     Copyright (C) <2016> SIB Swiss Institute of Bioinformatics
+*
+*     This program is free software: you can redistribute it and/or modify
+*     it under the terms of the GNU Affero General Public License as
+*     published by the Free Software Foundation, either version 3 of the
+*     License, or (at your option) any later version.
+*
+*     This program is distributed in the hope that it will be useful,
+*     but WITHOUT ANY WARRANTY; without even the implied warranty of
+*     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*     GNU Affero General Public License for more details.
+*
+*     You should have received a copy of the GNU Affero General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>
+*
+*****************************************************************/
+-->
+
+<div class = 'container'>
+	<h3>Submit peptide sequences to {{vm.siteTitle}}</h3>
+	<div class = 'panel panel-default' style = 'margin-top: 50px;'>
+		<div class = 'panel-heading'>
+			<div class = 'panel-title'>Upload FASTA file</div>
+		</div>
+		<div class = 'panel-body'>
+			<form name="form" ng-submit="vm.sendToBackend()" role="form" novalidate class = 'form-horizontal' role = 'form'>
+				<div class = 'form-group'>
+					<label class = 'control-label col-sm-3' for="fastafile">FASTA file</label>
+					<div class = 'col-sm-9' style = 'margin-top: 7px;'>
+							<input type="file" id="fastafile" name="fastafile" ngf-select="vm.uploadFile($file)" />
+					</div>
+				</div>
+				<div  class = 'form-group input-group-sm' ng-class="{ 'has-error': form.nr_motifs.$dirty && form.nr_motifs.$error.required }">
+					<label class = 'control-label col-sm-3' for="nr_motifs">Max nr of motifs</label>
+					<div class = 'col-sm-2'><input type="number" name="nr_motifs" id="nr_motifs" class="form-control" min="1" step="1" ng-model="vm.nr_motifs" required /></div>
+					<div class = 'col-sm-6'><span ng-show="form.nr_motifs.$dirty && form.nr_motifs.$error.required" class="help-block">Number of motifs is required</span></div>
+				</div>
+				<div class = 'form-actions col-sm-9 col-sm-offset-3'>
+					<button type="submit" ng-disabled="form.$invalid || !vm.fileData" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>

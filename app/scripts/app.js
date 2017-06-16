@@ -91,6 +91,13 @@
 			pageKey: 'RESULTS'
 
 		})
+		.when('/results/:result_id', {
+			templateUrl: 'views/results.html',
+			controller: 'ResultsCtrl',
+			controllerAs: 'vm',
+			pageKey: 'RESULTS'
+
+		})
 		.otherwise({
 			redirectTo: '/submission'
 		});

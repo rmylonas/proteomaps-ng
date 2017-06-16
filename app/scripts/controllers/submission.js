@@ -60,9 +60,8 @@
 				.customPOST(formData, '', undefined, {'Content-Type': undefined});
 
 			backendCall.then(function(data){
-				console.log('all ok');
-				console.log(data);
                 loadingMessage(false);
+                $location.path('/results/' + data.result_id);
 			}, function(response){
                 console.log("Error with status code", response.status);
                 loadingMessage(false);

@@ -43,5 +43,19 @@
 		</div>
 	</div>
 
+	<h3 ng-if="vm.motifData">Peptides</h3>
+
+	<div ng-repeat="(nrMotifs, motifGroup) in vm.motifData">
+		<div class="row">
+			<h4>{{nrMotifs + ' motif' + ((nrMotifs != '1')?'s':'')}}</h4>
+		</div>
+		<div class="row" ng-repeat="lineData in motifGroup">
+			<div class="col-sm-3" ng-repeat="logoInfo in lineData">
+				<img ng-src="{{logoInfo.imgURL}}" style="width:100%;">
+				<span>{{logoInfo.id}} - {{logoInfo.nr_peptides}} ({{logoInfo.PMW.toFixed(3)}})</span>
+			</div>
+		</div>
+	</div>
+
 
 </div>

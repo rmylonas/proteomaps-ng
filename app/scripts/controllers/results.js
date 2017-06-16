@@ -32,28 +32,46 @@
         .module('vikmApp')
         .controller('ResultsCtrl', ResultsCtrl);
 
-    ResultsCtrl.$inject = ['$location', 'toastr','siteTitle','$http', 'Upload', 'Restangular'];
-    function ResultsCtrl($location, toastr, siteTitle, $http, Upload, Restangular) {
+    ResultsCtrl.$inject = ['$location', 'toastr','siteTitle','$http', 'Upload', 'Restangular', '_', 'ENV', '$routeParams'];
+    function ResultsCtrl($location, toastr, siteTitle, $http, Upload, Restangular, _, ENV, $routeParams) {
         var vm = this;
 		vm.siteTitle = siteTitle.name;
         vm.status = {};
+        const PICTURES_PER_ROW = 4;
+
+
+    /* @ngdoc function
+    * @name vikmApp.controller:ResultsCtrl:groupPictures
+    * @description
+    * prepare data to show only certain number of pictures per row
+    */
+     var groupPictures = function(motifData){
+        return _.mapValues(motifData, function(motif){
+            var motifWithImgSrc = _.map(motif, function(m){
+                var r = m;
+                r.imgURL = ENV.imageURL + '/?filename=' + r.logo_img + '&result_id=' + vm.resultId;
+                return r;
+            });
+
+            return _.chunk(motifWithImgSrc, PICTURES_PER_ROW);
+        });
+     }
 
 	/**
 	 * @ngdoc function
-	 * @name vikmApp.controller:SubmissionCtrl:upload
+	 * @name vikmApp.controller:ResultsCtrl:sendToBackend
 	 * @description
 	 * upload the data to the backend
 	 */
-		vm.sendToBackend = function() {
+    vm.sendToBackend = function() {
             loadingMessage(true);
 
 			// prepare the form data
 			var backendCall = Restangular.one('results/' + vm.resultId).get();
 
 			backendCall.then(function(data){
-				console.log('all ok');
-				console.log(data);
-				vm.resultHtml = data.html_file;
+				vm.motifData = groupPictures(data.motifs);
+				vm.resultId = data.result_id;
                 loadingMessage(false);
 			}, function(response){
                 console.log("Error with status code", response.status);
@@ -89,6 +107,12 @@
                     toastr.error('Error please reload the page');
                 }
             }
+        }
+
+        // if resultId is passed by routePath
+        if ($routeParams.result_id) {
+            vm.resultId = $routeParams.result_id;
+            vm.sendToBackend();
         }
 
 	}

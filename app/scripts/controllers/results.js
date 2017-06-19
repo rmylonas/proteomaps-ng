@@ -32,8 +32,8 @@
         .module('vikmApp')
         .controller('ResultsCtrl', ResultsCtrl);
 
-    ResultsCtrl.$inject = ['$location', 'toastr','siteTitle','$http', 'Upload', 'Restangular', '_', 'ENV', '$routeParams'];
-    function ResultsCtrl($location, toastr, siteTitle, $http, Upload, Restangular, _, ENV, $routeParams) {
+    ResultsCtrl.$inject = ['$location', 'toastr','siteTitle','$http', 'Upload', 'Restangular', '_', 'ENV', '$routeParams', 'FileSaver'];
+    function ResultsCtrl($location, toastr, siteTitle, $http, Upload, Restangular, _, ENV, $routeParams, FileSaver) {
         var vm = this;
 		vm.siteTitle = siteTitle.name;
         vm.status = {};
@@ -58,21 +58,18 @@
      }
 
 
+    /**
+     * @ngdoc function
+     * @name vikmApp.controller:ResultsCtrl:downloadZip
+     * @description
+     * download ZIP file with results
+     */
      vm.downloadZip = function() {
 
-         console.log('download zip');
-
-         Restangular.one('results/' + vm.resultId + '/zip').get().then(function(response) {
-             //FileSaver.saveAs(file, rName);
-             // Response is the blob :)
-             var anchor = angular.element('<a/>');
-             anchor.attr({
-                 href: 'data:attachment' + encodeURI(response),
-                 target: '_blank',
-                 download: vm.resultId + '.zip'
-             })[0].click();
+         Restangular.one('results/' + vm.resultId + '/zip').withHttpConfig({responseType: 'blob'}).customGET().then(function(res) {
+             var file = new Blob([res], { type: 'application/zip, application/octet-stream' });
+             saveAs(file, vm.resultId + '.zip');
          });
-
 
      }
 

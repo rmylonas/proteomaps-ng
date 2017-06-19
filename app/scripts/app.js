@@ -49,7 +49,8 @@
 		'angular.filter',
 		'angular-clipboard',
 		'ui.select',
-		'ngFileUpload'
+		'ngFileUpload',
+		'ngFileSaver'
 		// 'Vikm_Visualization'
 	])
 

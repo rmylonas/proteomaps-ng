@@ -45,16 +45,35 @@
     * @description
     * prepare data to show only certain number of pictures per row
     */
-     var groupPictures = function(motifData){
-        return _.mapValues(motifData, function(motif){
+     var groupPictures = function(motifData, bestCluster){
+        return _.mapValues(motifData, function(motif, k){
             var motifWithImgSrc = _.map(motif, function(m){
                 var r = m;
                 r.imgURL = ENV.imageURL + '/?filename=' + r.logo_img + '&result_id=' + vm.resultId;
                 return r;
             });
 
-            return _.chunk(motifWithImgSrc, PICTURES_PER_ROW);
+            return {'motifs': _.chunk(motifWithImgSrc, PICTURES_PER_ROW), 'isBest' : (k == bestCluster) ? true : false };
         });
+     }
+
+
+     vm.downloadZip = function() {
+
+         console.log('download zip');
+
+         Restangular.one('results/' + vm.resultId + '/zip').get().then(function(response) {
+             //FileSaver.saveAs(file, rName);
+             // Response is the blob :)
+             var anchor = angular.element('<a/>');
+             anchor.attr({
+                 href: 'data:attachment' + encodeURI(response),
+                 target: '_blank',
+                 download: vm.resultId + '.zip'
+             })[0].click();
+         });
+
+
      }
 
 	/**
@@ -70,7 +89,7 @@
 			var backendCall = Restangular.one('results/' + vm.resultId).get();
 
 			backendCall.then(function(data){
-				vm.motifData = groupPictures(data.motifs);
+				vm.motifData = groupPictures(data.motifs, data.best_cluster);
 				vm.resultId = data.result_id;
                 loadingMessage(false);
 			}, function(response){

@@ -41,8 +41,9 @@ module.exports = function (grunt) {
     		  },
     		  constants: {
     			  ENV: {
-    				  serverURL: 'http://vikm/api/index.php',
-    				  withCredentials: true,
+    				  serverURL: 'http://mixmhcp/api/index.php',
+                      imageURL: 'http://mixmhcp/api/image_get.php',
+    				  withCredentials: false,
     				  debugInfoEnabled: true,
     				  CORS: true
     			  }

@@ -56,6 +56,7 @@ module.exports = function (grunt) {
     		  constants: {
     			  ENV: {
     				  serverURL: 'api/index.php/',
+                      imageURL: 'api/image_get.php',
     				  withCredentials: false,
     				  debugInfoEnabled: false,
     				  CORS: false

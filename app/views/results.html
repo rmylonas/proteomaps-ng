@@ -33,7 +33,7 @@
 					<div class = 'panel-title'>Load results</div>
 				</div>
 				<div class = 'panel-body'>
-					<form name="form" ng-submit="vm.sendToBackend()" role="form" novalidate class = 'form-horizontal' role = 'form'>
+					<form name="form" ng-submit="vm.sendToBackend()" role="form" class = 'form-horizontal'>
 						<div  class = 'form-group input-group-sm' ng-class="{ 'has-error': form.result_id.$dirty && form.result_id.$error.required }">
 							<label class = 'control-label col-sm-2' for="result_id">Result ID</label>
 							<div class = 'col-sm-6'><input type="text" name="result_id" id="result_id" class="form-control" ng-model="vm.resultId" minlength="13" maxlength="13" required /></div>
@@ -56,18 +56,20 @@
 			<h2 >Peptides</h2>
 		</div>
 		<div class="col-sm-2">
-			<button ng-click="vm.downloadZip()" class="btn btn-primary"  style = 'margin-top: 16px';><span class="glyphicon glyphicon-download" aria-hidden="true"/> Download results as ZIP</button>
+			<button ng-click="vm.downloadZip()" class="btn btn-primary"  style = 'margin-top: 16px;'><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download results as ZIP</button>
 		</div>
 	</div>
 
 	<div ng-repeat="(nrMotifs, motifGroup) in vm.motifData">
 		<div class="row">
-			<h3><span ng-if="motifGroup.isBest" class="glyphicon glyphicon-star" aria-hidden="true" style="color:gold"/>{{nrMotifs + ' motif' + ((nrMotifs != '1')?'s':'') + (motifGroup.isBest ? ' - Optimal number of predicted motifs' : '')}}</h3>
+			<h3><span ng-if="motifGroup.isBest" class="glyphicon glyphicon-star" aria-hidden="true" style="color:gold"></span>{{nrMotifs + ' motif' + ((nrMotifs != '1')?'s':'') + (motifGroup.isBest ? ' - Optimal number of predicted motifs' : '')}}</h3>
 		</div>
 		<div class="row" ng-repeat="lineData in motifGroup.motifs">
 			<div class="col-sm-3" ng-repeat="logoInfo in lineData">
 				<img ng-src="{{logoInfo.imgURL}}" style="width:100%;">
-				<span>{{logoInfo.id}} - {{logoInfo.nr_peptides}} ({{logoInfo.PMW.toFixed(3)}})</span>
+				<div class="text-center">
+					<span>{{logoInfo.id}} - {{logoInfo.nr_peptides}} ({{logoInfo.PMW.toFixed(3)}})</span>
+				</div>
 			</div>
 		</div>
 		<hr>

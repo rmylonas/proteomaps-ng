@@ -99,6 +99,11 @@
 			pageKey: 'RESULTS'
 
 		})
+		.when('/documentation', {
+			templateUrl: 'views/documentation.html',
+			pageKey: 'DOC'
+
+		})
 		.otherwise({
 			redirectTo: '/submission'
 		});

@@ -41,6 +41,43 @@
 		vm.fasta_filename;
 		vm.siteTitle = siteTitle.name;
         vm.status = {};
+        vm.selectedFileName = "No file chosen";
+
+
+    /**
+     * @ngdoc function
+     * @name vikmApp.controller:SubmissionCtrl:downloadSampleFasta
+     * @description
+     * download the sample FASTA file
+     */
+    vm.downloadSampleFasta = function() {
+        Restangular.one('test-fasta').withHttpConfig({responseType: 'blob'}).customGET().then(function(res) {
+            var file = new Blob([res], { type: 'text/plain' });
+            saveAs(file, 'test.fa');
+        });
+    };
+
+
+    /**
+     * @ngdoc function
+     * @name vikmApp.controller:SubmissionCtrl:submitSampleFasta
+     * @description
+     * submit the sample FASTA file
+     */
+    vm.submitSampleFasta = function() {
+        Restangular.one('test-fasta').withHttpConfig({responseType: 'blob'}).customGET().then(function(res) {
+            var testFileName = 'test.fa';
+            var file = new File([res], testFileName, { type: 'text/plain'});
+            vm.fileData = file;
+            vm.selectedFileName = testFileName;
+        });
+    };
+
+
+    vm.clickBrowse = function(){
+        $("#fastafile").click();
+    };
+
 
 	/**
 	 * @ngdoc function
@@ -76,6 +113,7 @@
 	 * upload the data to the backend
 	 */
 		vm.uploadFile = function($file) {
+            vm.selectedFileName = $file.name;
 			vm.fileData = $file;
 		};
 

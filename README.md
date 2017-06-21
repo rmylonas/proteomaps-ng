@@ -4,6 +4,7 @@ This is the frontend for the MixMHCp web project. It is communicating with the [
 
 The code is written in Javascript using the AngularJS framework. It is based on a simplified version of [ViKM](https://www.vital-it.ch/research/software/ViKM).
 
+
 ## Prerequisites
 
 - [NodeJS](https://nodejs.org)

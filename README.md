@@ -19,6 +19,22 @@ npm install
 bower install
 ```
 
+To make the application use the correct css, the following section has to be changed in `bower_components/bootstrap/bower.json`:
+
+```
+ "homepage": "http://getbootstrap.com",
+    "main": [
+     "less/bootstrap.less",
+     "dist/css/bootstrap.css",
+     "dist/js/bootstrap.js",
+     "dist/fonts/glyphicons-halflings-regular.eot",
+     "dist/fonts/glyphicons-halflings-regular.svg",
+     "dist/fonts/glyphicons-halflings-regular.ttf",
+     "dist/fonts/glyphicons-halflings-regular.woff"
+   ],
+ ```
+
+
 ## Development server
 
 You can start a development server with Grunt:

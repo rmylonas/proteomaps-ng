@@ -45,13 +45,18 @@
 
 							</div>
 						</div>
+						<div  class = 'form-group input-group-sm'>
+							<label class = 'control-label col-sm-3' for="pep_seqs">Peptide sequences</label>
+							<div class = 'col-sm-2'><textarea name="pep_seqs" id="pep_seqs" rows="6" cols="50" ng-model="vm.pepSeqs"></textarea></div>
+						</div>
+
 						<div  class = 'form-group input-group-sm' ng-class="{ 'has-error': form.nr_motifs.$dirty && form.nr_motifs.$error.required }">
 							<label class = 'control-label col-sm-3' for="nr_motifs">Max nr of motifs</label>
 							<div class = 'col-sm-2'><input type="number" name="nr_motifs" id="nr_motifs" class="form-control" min="1" step="1" ng-model="vm.nr_motifs" required /></div>
 							<div class = 'col-sm-6'><span ng-show="form.nr_motifs.$dirty && form.nr_motifs.$error.required" class="help-block">Number of motifs is required</span></div>
 						</div>
 						<div class = 'form-actions col-sm-9 col-sm-offset-3'>
-							<button type="submit" ng-disabled="form.$invalid || !vm.fileData" class="btn btn-primary">Submit</button>
+							<button type="submit" ng-disabled="form.$invalid || !(vm.fileData || vm.pepSeqs) " class="btn btn-primary">Submit</button>
 						</div>
 					</form>
 

@@ -18,40 +18,44 @@
 *
 *****************************************************************/
 -->
-
 <div class = 'container'>
-	<div class="text-center">
-		<h2>Some documentation</h2>
-		MixMHCp is a website to identify clusters within large datasets of short peptides. 
-        The different clusters are modelled with distinct Position Weight Matrices (PWMs) that can be visualized with sequence logos.
-        <br>
-        The algorithm automatically learns the entries of these PWMs and their respective weight. The learning is based on mixture models and maximum likelihood (EM algorithm), which scales linearly with the size of the dataset.
-        <br><br>
-        <h3>Input</h3>
-        As input, you should give a list of peptides, all of the same length and consisting only in natural amino acids. 
-        The list of peptides can be in standard text format with each peptide on a different line, or in fasta format.
-        Max nr of motifs corresponds to the maximal number of motifs that should be explored (Maximal value is 20).
+<div class="text-left">
+
+  <h2>Some documentation</h2>
+  MixMHCp is a website to identify clusters within large datasets of short peptides.<br>
+  The different clusters are mathematically modelled with Position Weight Matrices (PWMs) that can be visualized with sequence logos and are often referred to as "motifs".
+  <br><br>
+  The algorithm automatically learns the entries of these PWMs and their respective weight.<br>The learning is based on mixture models and maximum likelihood (EM algorithm).
+  <br>
+
+  <h3>Input</h3>
+        As input, you should give a list of peptides, all of the same length and consisting only of natural amino acids. 
+        <br>The list of peptides can be in standard text format with each peptide on a different line, or in fasta format.<br>Be careful not to load files with metadata, such as Excel spreadsheets.
+        <br>"Max nr of motifs" corresponds to the maximal number of motifs that should be explored (Maximal value is 20).
         
         <h3>Output</h3>
         <h4>Graphical output</h4>
         The different logos representing each cluster are shown for different numbers of clusters (up to "Max nr of motifs"), as well as the number of peptides assigned to them.
         
         <h4>Downloadable output</h4>
-        The responsibility/ folder contains the assignment of each peptide to each cluster. These files correspond to the contribution of each peptide to each motif. Peptide assignment to each cluster can be done by considering the max of the responsibility values.
-        <br>The Multiple_PWM/ folder contains the PWMs that optimally model the input data. Of note, these are not meant to be used for predictions, since they do not include any renormalization fot background frequencies, or
-        <br>The logos/ folder contains the logos representing each cluster. The logos.html file allows you to quickly visualize the logos for the different number of clusters.
-        <br>The data/ folder contains the input data.
-        <br>The KLD/ folder contains the KLD score for each number of motifs, as well as the predicted optimal number of motifs. However, it is in general advisable to manually go through the motifs to check the optimal number of motifs, since this number may depend on the input data and the kind of application that you want.
-        
+  <ul>
+  <li>The responsibility/ folder contains the assignment of each peptide to each cluster for the different number of clusters.<br>These values correspond to the contribution of each peptide to each cluster or motif.<br>Peptide assignment to each cluster can be done by considering the max of the responsibility values.</li>
+        <li>The Multiple_PWMs/ folder contains the PWMs that optimally model the input data.<br>Of note, these are not meant to be used as predictors, since they do not include any renormalization for background frequencies<br>and the prior used in the mixture model may not be optimal for training predictors.</li>
+        <li>The logos/ folder contains the logos (.png) representing each cluster.<br>Logos have been generate with the <a href="http://baderlab.org/Software/LOLA">LoLa</a> software.<br>The logos.html file allows you to quickly visualize all the logos.</li>
+        <li>The data/ folder contains the input data. </li>
+        <li>The KLD/ folder contains the KLD scores for each number of motifs, as well as the predicted optimal number of motifs.<br>However, it is in general advisable to manually go through the motifs to check the optimal number of motifs, since this number may depend on the input data and the kind of application that you want. </li>
+      </ul>
+      
         <h2>Other information</h2>
-        MixMHCp is developed by the <a href="http://www.unil.ch/dof/research/gfeller">Computational Cancer Biology Lab</a> at the Ludwig Center for Cancer Research at <a href="http://unil.ch/index.html">UNIL</a> headed by Prof. David Gfeller, in collaboration with the Vital-IT team.    
+        MixMHCp algorithm is developed by the <a href="http://www.unil.ch/dof/research/gfeller">Computational Cancer Biology Lab</a> at the Ludwig Center for Cancer Research at <a href="http://unil.ch/index.html">UNIL</a> headed by Prof. David Gfeller, in collaboration with the Vital-IT team.    
+      <br>
+      <br>
+        In the past, the method has been successfully applied to phage display data to identify multiple specificity patterns [Gfeller et al, MSB 2011; Kim et al. NAR 2012] and HLA peptidomics data to deconvolute mixtures of HLA ligands coming from up to 6 alleles [Bassani-Sternberg and Gfeller, JI 2016; Bassani-Sternberg et al. bioRxiv 2017].
         <br>
-        In the past, the method has been successfully applied to phage display data to identify multiple specificiy patterns [Gfeller et al, MSB 2011; Kim et al. NAR 2012] and HLA peptidomics data to deconvolute mixtures of HLA ligands coming from up to 6 alleles [Bassani-Sternberg and Gfeller, JI 2016; Bassani-Sternberg et al. bioRxiv 2017].
+        <br>
+        If you use this website in a publication, please cite <a href="https://www.ncbi.nlm.nih.gov/pubmed/27511729">[Bassani-Sternberg M and Gfeller D, J. Immunol. 197(6):2492 (2016)]</a>
         <br>
         <br>
-        If you use this website in a publication, please cite Bassani-Sternberg M and Gfeller D, J. Immunol. (2016)
-        <br>
-        
 
 		MixMHCp can be used freely by academic groups for non-commercial purposes.
         The product is provided free of charge, and, therefore, on an "as is" basis, without warranty of any kind.
@@ -59,7 +63,8 @@
 		If you plan to use MixMHCp in any for-profit application, you are required to obtain a separate license. 
 		To do so, please contact eauffarth@licr.org or lfoit@licr.org at the Ludwig Institute for  Cancer Research Ltd.
 		<br>
-		
+
+
 	</div>
 
 

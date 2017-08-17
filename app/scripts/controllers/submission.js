@@ -34,8 +34,8 @@
         .module('vikmApp')
         .controller('SubmissionCtrl', SubmissionCtrl);
 
-    SubmissionCtrl.$inject = ['$location', 'toastr','siteTitle','$http', 'Upload', 'Restangular'];
-    function SubmissionCtrl($location, toastr, siteTitle, $http, Upload, Restangular) {
+    SubmissionCtrl.$inject = ['$location', 'toastr','siteTitle','$http', 'Upload', 'Restangular', '$scope'];
+    function SubmissionCtrl($location, toastr, siteTitle, $http, Upload, Restangular, $scope) {
         var vm = this;
         vm.nr_motifs = 6;
 		vm.fasta_filename;
@@ -54,6 +54,23 @@
         Restangular.one('test-fasta').withHttpConfig({responseType: 'blob'}).customGET().then(function(res) {
             var file = new Blob([res], { type: 'text/plain' });
             saveAs(file, 'test.fa');
+        });
+    };
+
+    /**
+     * @ngdoc function
+     * @name vikmApp.controller:SubmissionCtrl:insertSamplePeptides
+     * @description
+     * insert sample peptides to text area
+     */
+    vm.insertSamplePeptides = function() {
+        Restangular.one('test-peptides').withHttpConfig({responseType: 'blob'}).customGET().then(function(res) {
+            var reader = new FileReader();
+            reader.readAsText(res);
+            reader.onloadend = function() {
+                vm.pepSeqs = reader.result;
+                $scope.$apply();
+            }
         });
     };
 

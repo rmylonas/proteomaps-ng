@@ -57,7 +57,7 @@
 	<div class="row" ng-if="vm.motifData">
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="x-mer-tab" ng-repeat="xMer in vm.xMers" ng-class="(vm.selXMer == xMer) ? 'active' : undefined">
-				<a ng-click="vm.selectXMer(xMer)">{{xMer}}-mer</a>
+				<a ng-click="vm.selectXMer(xMer)">{{xMer}}-mers</a>
 			</li>
 			<li role="presentation" class="x-mer-tab" ng-class="vm.showLengthDistribution ? 'active' : undefined">
 				<a ng-click="vm.showLengthDistributionFunc()">Length distributions</a>
@@ -66,11 +66,8 @@
 	</div>
 
 	<div class="row" ng-if="vm.selXMer">
-		<div class="col-sm-1">
-			<h2 >Peptides</h2>
-		</div>
-		<div class="col-sm-2">
-			<h2 >{{vm.selXMer}}-mer{{(vm.selXMer == 1) ? '' : 's'}}</h2>
+		<div class="col-sm-3">
+			<h2 >Peptides {{vm.selXMer}}-mers</h2>
 		</div>
 	</div>
 

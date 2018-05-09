@@ -59,10 +59,13 @@
 			<li role="presentation" class="x-mer-tab" ng-repeat="xMer in vm.xMers" ng-class="(vm.selXMer == xMer) ? 'active' : undefined">
 				<a ng-click="vm.selectXMer(xMer)">{{xMer}}-mer</a>
 			</li>
+			<li role="presentation" class="x-mer-tab" ng-class="vm.showLengthDistribution ? 'active' : undefined">
+				<a ng-click="vm.showLengthDistributionFunc()">Length distributions</a>
+			</li>
 		</ul>
 	</div>
 
-	<div class="row" ng-if="vm.motifData">
+	<div class="row" ng-if="vm.selXMer">
 		<div class="col-sm-1">
 			<h2 >Peptides</h2>
 		</div>
@@ -71,14 +74,21 @@
 		</div>
 	</div>
 
-	<div ng-repeat="(nrMotifs, motifGroup) in vm.motifData">
+	<div class="row" ng-if="vm.showLengthDistribution">
+		<div class="col-sm-1">
+			<h2 >Length distribution</h2>
+		</div>
+	</div>
+
+
+	<div ng-repeat="(nrMotifs, motifGroup) in (vm.selXMer ? vm.motifData : vm.lengthDistData)">
 		<div class="row">
 			<h3><span ng-if="motifGroup.isBest" class="glyphicon glyphicon-star" aria-hidden="true" style="color:gold"></span>{{nrMotifs + ' motif' + ((nrMotifs != '1')?'s':'') + (motifGroup.isBest ? ' - Optimal number of predicted motifs' : '')}}</h3>
 		</div>
 		<div class="row" ng-repeat="lineData in motifGroup.motifs">
 			<div class="col-sm-3" ng-repeat="logoInfo in lineData">
 				<img ng-src="{{logoInfo.imgURL}}" style="width:100%;">
-				<div class="text-center">
+				<div ng-if="vm.selXMer" class="text-center">
 					<span>{{logoInfo.id}} - {{logoInfo.nr_peptides}} ({{logoInfo.PMW.toFixed(3)}})</span>
 				</div>
 			</div>

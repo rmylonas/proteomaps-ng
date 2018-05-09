@@ -49,7 +49,7 @@
         return _.mapValues(motifData, function(motif, k){
             var motifWithImgSrc = _.map(motif, function(m){
                 var r = m;
-                r.imgURL = ENV.imageURL + '/?filename=' + r.logo_img + '&result_id=' + vm.resultId;
+                r.imgURL = ENV.imageURL + '/?filename=' + r.img + '&result_id=' + vm.resultId;
                 return r;
             });
 
@@ -85,6 +85,18 @@
          vm.selXMer = xMer;
          const selData = vm.xMerData[vm.selXMer];
          vm.motifData = groupPictures(selData.motifs, selData.best_cluster);
+         vm.showLengthDistribution = false;
+     }
+
+        /**
+         * @ngdoc function
+         * @name vikmApp.controller:ResultsCtrl:showLengthDistribution
+         * @description
+         * show the length distribution tab
+         */
+     vm.showLengthDistributionFunc = function(){
+         vm.showLengthDistribution = true;
+         vm.selXMer = undefined;
      }
 
 	/**
@@ -101,11 +113,13 @@
 
 			backendCall.then(function(data){
 			    vm.xMerData = data.x_mers_data;
+			    vm.lengthDistData = groupPictures(data.length_dist, undefined);
 			    vm.xMers = data.x_mers;
                 vm.selXMer = data.default_x_mer;
                 const selData = vm.xMerData[vm.selXMer]
 				vm.motifData = groupPictures(selData.motifs, selData.best_cluster);
 				vm.resultId = data.result_id;
+                vm.showLengthDistribution = false;
                 loadingMessage(false);
 			}, function(response){
                 console.log("Error with status code", response.status);

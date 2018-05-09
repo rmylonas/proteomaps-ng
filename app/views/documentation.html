@@ -22,13 +22,18 @@
 <div class="text-left">
 
   <h2>Documentation</h2>
-  MixMHCp is a website to identify clusters within large datasets of short peptides.<br>
-  The different clusters are mathematically modelled with Position Weight Matrices (PWMs) that can be visualized with sequence logos and are often referred to as "motifs".
+    MixMHCp is a webserver to identify motifs within large datasets of peptides.<br>
+    The different motifs are mathematically modelled with Position Weight Matrices (PWMs) that are visualized with sequence logos. MixMHCp2.0 includes several features optimized for HLA-I ligands, but it can also be run on peptides from other origins.
   <br><br>
-  The algorithm automatically learns the entries of these PWMs and their respective weight.<br>The learning is based on mixture models and maximum likelihood (EM algorithm).
-  <br>
+    The algorithm automatically learns the entries of the PWMs and their respective weight.
+    The learning is based on mixture models and maximum likelihood (EM algorithm).
+    <br>
 
-  <h3>Input</h3>
+    The command-line script for Mac or Linux can be obtained at:
+    <a href="https://github.com/GfellerLab/MixMHCp">https://github.com/GfellerLab/MixMHCp</a>.
+    <br>
+
+    <h3>Input</h3>
         As input, you should give a list of peptides, all of the same length and consisting only of natural amino acids. 
         <br>The list of peptides can be in standard text format with each peptide on a different line, or in fasta format.<br>Be careful not to load files with metadata, such as Excel spreadsheets.
         <br>"Max nr of motifs" corresponds to the maximal number of motifs that should be explored (Maximal value is 20).

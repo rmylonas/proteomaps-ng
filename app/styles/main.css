@@ -177,3 +177,11 @@ body {
 .info-help {
     cursor: pointer;
 }
+
+#use-trash {
+    margin-top:13px;
+}
+
+.x-mer-tab {
+    cursor: pointer;
+}

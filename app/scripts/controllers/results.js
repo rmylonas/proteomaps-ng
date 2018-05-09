@@ -73,6 +73,20 @@
 
      }
 
+
+    /**
+     * @ngdoc function
+     * @name vikmApp.controller:ResultsCtrl:selectXMer
+     * @param xMer
+     * @description
+     * change the selected x-mer
+     */
+     vm.selectXMer = function(xMer) {
+         vm.selXMer = xMer;
+         const selData = vm.xMerData[vm.selXMer];
+         vm.motifData = groupPictures(selData.motifs, selData.best_cluster);
+     }
+
 	/**
 	 * @ngdoc function
 	 * @name vikmApp.controller:ResultsCtrl:sendToBackend
@@ -86,7 +100,11 @@
 			var backendCall = Restangular.one('results/' + vm.resultId).get();
 
 			backendCall.then(function(data){
-				vm.motifData = groupPictures(data.motifs, data.best_cluster);
+			    vm.xMerData = data.x_mers_data;
+			    vm.xMers = data.x_mers;
+                vm.selXMer = data.default_x_mer;
+                const selData = vm.xMerData[vm.selXMer]
+				vm.motifData = groupPictures(selData.motifs, selData.best_cluster);
 				vm.resultId = data.result_id;
                 loadingMessage(false);
 			}, function(response){

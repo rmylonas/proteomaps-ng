@@ -39,6 +39,7 @@
         var vm = this;
         vm.nr_motifs = 6;
         vm.core_length = 9;
+        vm.use_trash = true;
 		vm.fasta_filename;
 		vm.siteTitle = siteTitle.name;
         vm.status = {};
@@ -132,6 +133,7 @@
 
             formData.append('nr_of_motifs', vm.nr_motifs);
             formData.append('core_length', vm.core_length);
+            formData.append('use_trash', (vm.use_trash ? 1 : 0));
 
 			var backendCall = Restangular.all('peptides').withHttpConfig({transformRequest: angular.identity})
 				.customPOST(formData, '', undefined, {'Content-Type': undefined});

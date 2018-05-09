@@ -20,11 +20,6 @@
 -->
 
 <div class = 'container'>
-	<div class="text-center">
-		<h2>Show results from {{vm.siteTitle}}</h2>
-	</div>
-
-
 
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-3">
@@ -53,10 +48,26 @@
 
 	<div class="row" ng-if="vm.motifData">
 		<div class="col-sm-2">
+			<button ng-click="vm.downloadZip()" class="btn btn-primary"  style = 'margin-top: 16px;'><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download results as ZIP</button>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row" ng-if="vm.motifData">
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="x-mer-tab" ng-repeat="xMer in vm.xMers" ng-class="(vm.selXMer == xMer) ? 'active' : undefined">
+				<a ng-click="vm.selectXMer(xMer)">{{xMer}}-mer</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="row" ng-if="vm.motifData">
+		<div class="col-sm-1">
 			<h2 >Peptides</h2>
 		</div>
 		<div class="col-sm-2">
-			<button ng-click="vm.downloadZip()" class="btn btn-primary"  style = 'margin-top: 16px;'><span class="glyphicon glyphicon-download" aria-hidden="true"></span> Download results as ZIP</button>
+			<h2 >{{vm.selXMer}}-mer{{(vm.selXMer == 1) ? '' : 's'}}</h2>
 		</div>
 	</div>
 

@@ -41,8 +41,8 @@ module.exports = function (grunt) {
     		  },
     		  constants: {
     			  ENV: {
-    				  serverURL: 'https://mixmhcp-dev/api/index.php',
-                      imageURL: 'https://mixmhcp-dev/api/image_get.php',
+    				  serverURL: 'http://mixmhcp/api/index.php',
+                      imageURL: 'http://mixmhcp/api/image_get.php',
     				  withCredentials: false,
     				  debugInfoEnabled: true,
     				  CORS: true

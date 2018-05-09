@@ -38,6 +38,7 @@
     function SubmissionCtrl($location, toastr, siteTitle, $http, Upload, Restangular, $scope) {
         var vm = this;
         vm.nr_motifs = 6;
+        vm.core_length = 9;
 		vm.fasta_filename;
 		vm.siteTitle = siteTitle.name;
         vm.status = {};
@@ -115,7 +116,7 @@
 
             // check the provided peptide sequences
             if(vm.pepSeqs){
-                var checkRes = checkAndFormatPepSeqs(vm.pepSeqs);
+                var checkRes = checkAndFormatPepSeqs(vm.pepSeqs, vm.core_length);
                 if(!checkRes.isOk){
                     toastr.error(checkRes.errorMessage);
                     return;
@@ -130,6 +131,7 @@
             loadingMessage(true);
 
             formData.append('nr_of_motifs', vm.nr_motifs);
+            formData.append('core_length', vm.core_length);
 
 			var backendCall = Restangular.all('peptides').withHttpConfig({transformRequest: angular.identity})
 				.customPOST(formData, '', undefined, {'Content-Type': undefined});
@@ -150,7 +152,7 @@
          * @param pepSeq
          * @returns {*}
          */
-        function checkAndFormatPepSeqs(pepSeq){
+        function checkAndFormatPepSeqs(pepSeq, core_length){
             var allLinesList = pepSeq.split("\n");
 
             // remove all FASTA headers
@@ -159,9 +161,9 @@
             // remove empty lines
             var pepList2 = _.filter(pepList, function(p){ return p != ""; });
 
-            // check that the sequnces are al of same length
-            if(! pepList2.every(function(p){return p.length == pepList2[0].length; })){
-                return {isOK: false, errorMessage: "<strong>PEPTIDE SEQUENCE ERROR</strong><br>Peptide sequences have to be of same length."};
+            // check that the sequences correspond to the given core length
+            if(! _.some(pepList2, function(p){ return p.length == core_length; })){
+                return {isOK: false, errorMessage: "<strong>PEPTIDE SEQUENCE ERROR</strong><br>Peptide sequences have to correspond to the given core length."};
             }
 
             // add a FASTA header to all sequences

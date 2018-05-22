@@ -45,8 +45,8 @@
     * @description
     * prepare data to show only certain number of pictures per row
     */
-     var groupPictures = function(motifData, bestCluster){
-        return _.mapValues(motifData, function(motif, k){
+     var groupPictures = function(motifData){
+        return _.mapValues(motifData, function(motif){
             var motifWithImgSrc = _.map(motif, function(m){
                 var r = m;
                 r.imgURL = ENV.imageURL + '/?filename=' + r.img + '&result_id=' + vm.resultId;
@@ -84,7 +84,7 @@
      vm.selectXMer = function(xMer) {
          vm.selXMer = xMer;
          const selData = vm.xMerData[vm.selXMer];
-         vm.motifData = groupPictures(selData.motifs, selData.best_cluster);
+         vm.motifData = groupPictures(selData.motifs);
          vm.showLengthDistribution = false;
      }
 
@@ -103,7 +103,7 @@
 	 * @ngdoc function
 	 * @name vikmApp.controller:ResultsCtrl:sendToBackend
 	 * @description
-	 * upload the data to the backend
+	 * get the results from the backend
 	 */
     vm.sendToBackend = function() {
             loadingMessage(true);
@@ -113,11 +113,11 @@
 
 			backendCall.then(function(data){
 			    vm.xMerData = data.x_mers_data;
-			    vm.lengthDistData = groupPictures(data.length_dist, undefined);
+			    vm.lengthDistData = groupPictures(data.length_dist);
 			    vm.xMers = data.x_mers;
                 vm.selXMer = data.default_x_mer;
                 const selData = vm.xMerData[vm.selXMer]
-				vm.motifData = groupPictures(selData.motifs, selData.best_cluster);
+				vm.motifData = groupPictures(selData.motifs);
 				vm.resultId = data.result_id;
                 vm.showLengthDistribution = false;
                 loadingMessage(false);

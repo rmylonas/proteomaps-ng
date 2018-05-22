@@ -185,3 +185,7 @@ body {
 .x-mer-tab {
     cursor: pointer;
 }
+
+.logo-info-text {
+    text-align: center;
+}

@@ -53,7 +53,7 @@
                 return r;
             });
 
-            return {'motifs': _.chunk(motifWithImgSrc, PICTURES_PER_ROW), 'isBest' : (k == bestCluster) ? true : false };
+            return {'motifs': _.chunk(motifWithImgSrc, PICTURES_PER_ROW) };
         });
      }
 

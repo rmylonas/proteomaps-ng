@@ -80,7 +80,7 @@
 
 	<div ng-repeat="(nrMotifs, motifGroup) in (vm.selXMer ? vm.motifData : vm.lengthDistData)">
 		<div class="row">
-			<h3><span ng-if="motifGroup.isBest" class="glyphicon glyphicon-star" aria-hidden="true" style="color:gold"></span>{{nrMotifs + ' motif' + ((nrMotifs != '1')?'s':'') + (motifGroup.isBest ? ' - Optimal number of predicted motifs' : '')}}</h3>
+			<h3>{{nrMotifs + ' motif' + ((nrMotifs != '1')?'s':'')}}</h3>
 		</div>
 		<div class="row" ng-repeat="lineData in motifGroup.motifs">
 			<div class="col-sm-3" ng-repeat="logoInfo in lineData">
